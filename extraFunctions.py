@@ -27,3 +27,19 @@ def class_balance(classcolumnSeries):
         print (str(i) + ") " + item + " - " + str(pct) + " %")
         i += 1
     
+    
+def normalize_df(frame):
+    '''
+    Helper function to Normalize data set
+    Intializes an empty data frame which will normalize all floats types
+    and just append the non-float types so basically the class in our data frame
+    '''
+    breastCancerNorm = pd.DataFrame()
+    for item in frame:
+        if item in frame.select_dtypes(include=[np.float]):
+            breastCancerNorm[item] = ((frame[item] - frame[item].min()) / 
+                            (frame[item].max() - frame[item].min()))
+        else:
+            breastCancerNorm[item] = frame[item]
+   
+    return breastCancerNorm
